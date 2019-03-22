@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_launcher" />
+
+    <!-- 设置标题名称 View 的左侧边缘位于 logo 的右侧 -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="虾吃虾涮（华贸店）"
+        app:layout_constraintLeft_toRightOf="@+id/iv_logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 设置价格 View 的底部靠近父布局，且顶部参考 titleView，同时左侧与 titleView 对齐 -->
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥64/人"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <!-- 设置 distanceView 紧贴屏幕右侧，且顶部与 priceView 对齐-->
+    <TextView
+        android:id="@+id/tv_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.1km"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_price" />
+
+    <!-- 设置 areaView 顶部与左侧都参考 priceView，底部位置参考 ivLogo-->
+    <TextView
+        android:id="@+id/tv_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="朝阳区 大望路"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_logo"
+        app:layout_constraintLeft_toLeftOf="@id/tv_price"
+        app:layout_constraintTop_toBottomOf="@id/tv_price" />
+
+    <!-- 设置 hotView 紧贴屏幕右侧，且顶部与 areaView 顶部对齐-->
+    <TextView
+        android:id="@+id/tv_curr_hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前人气89"
+        android:textSize="13sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_area" />
+
+    <!-- dividerView 位于整个布局的最底部，且始终位于 ivLogo 底部，并保持一定距离 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="7dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+
+</android.support.constraint.ConstraintLayout>
