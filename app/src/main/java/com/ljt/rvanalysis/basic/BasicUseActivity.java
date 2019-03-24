@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.ljt.rvanalysis.R;
+import com.ljt.rvanalysis.basic.decorations.RecyclerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
