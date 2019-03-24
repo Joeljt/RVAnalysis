@@ -41,6 +41,7 @@ public class BasicUseActivity extends AppCompatActivity {
 
     private List<String> initRecyclerData() {
         ArrayList<String> data = new ArrayList<>();
+        data.add("12");
         for (int i = 'a'; i <= 'z'; i++) {
             data.add(String.valueOf(i));
         }

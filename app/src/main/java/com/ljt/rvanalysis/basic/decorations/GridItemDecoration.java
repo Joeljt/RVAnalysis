@@ -75,7 +75,7 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
             if (parent.getLayoutManager() instanceof GridLayoutManager) {
                 GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();
                 int spanCount = layoutManager.getSpanCount();
-                if (i > childCount - spanCount) {
+                if (i >= childCount - spanCount) {
                     break;
                 }
             }
