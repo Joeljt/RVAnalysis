@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ljt.rvanalysis.R;
+
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_1, parent, false);
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.layout_basic_use_item, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -34,7 +36,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         String text = mData.get(position);
         holder.tv.setText(text);
-        holder.tv.setBackgroundColor(Color.GRAY);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tv = itemView.findViewById(android.R.id.text1);
+            tv = itemView.findViewById(R.id.text1);
         }
     }
 
