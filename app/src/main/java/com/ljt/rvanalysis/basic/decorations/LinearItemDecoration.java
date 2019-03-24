@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -11,12 +12,12 @@ import android.view.View;
  * Created by lijiateng on 2019/3/24.
  */
 
-public class LinearDecoration extends RecyclerView.ItemDecoration{
+public class LinearItemDecoration extends RecyclerView.ItemDecoration{
 
     private Drawable mDivider;
 
-    public LinearDecoration(Context context, int drawableResId) {
-        mDivider = context.getDrawable(drawableResId);
+    public LinearItemDecoration(Context context, int drawableResId) {
+        mDivider = ContextCompat.getDrawable(context, drawableResId);
     }
 
     /**
@@ -45,8 +46,14 @@ public class LinearDecoration extends RecyclerView.ItemDecoration{
 
         Rect rect = new Rect();
         rect.left = parent.getPaddingLeft();
+        rect.right = parent.getWidth() - parent.getPaddingRight();
 
-//        c.drawBitmap();
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            rect.top = parent.getChildAt(i).getBottom();
+            rect.bottom = rect.top + mDivider.getIntrinsicHeight();
+            mDivider.setBounds(rect); // 给 drawable 对象设置边界，用调用 canvas 完成绘制
+            mDivider.draw(c);
+        }
 
     }
 }
