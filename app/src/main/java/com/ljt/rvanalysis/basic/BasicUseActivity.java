@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.ljt.rvanalysis.R;
+import com.ljt.rvanalysis.basic.decorations.FlexibleDecoration;
 import com.ljt.rvanalysis.basic.decorations.GridItemDecoration;
 import com.ljt.rvanalysis.basic.decorations.LinearItemDecoration;
 import com.ljt.rvanalysis.basic.decorations.RecyclerItemDecoration;
@@ -34,7 +35,7 @@ public class BasicUseActivity extends AppCompatActivity {
 
         mRv = findViewById(R.id.recycler_view);
         mRv.setLayoutManager(new GridLayoutManager(this, 3));
-        mRv.addItemDecoration(new GridItemDecoration(this, R.drawable.item_divider_linear));
+        mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
         mRv.setAdapter(new RecyclerAdapter(this, initRecyclerData()));
 
     }
