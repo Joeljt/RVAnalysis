@@ -5,6 +5,7 @@
     <size
         android:width="10px"
         android:height="10px"/>
+
     <gradient android:startColor="@android:color/holo_orange_light"
         android:centerColor="@color/colorAccent"
         android:endColor="@color/colorPrimary"/>

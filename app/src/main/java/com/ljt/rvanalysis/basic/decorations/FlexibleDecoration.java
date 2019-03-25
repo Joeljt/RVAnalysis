@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.ljt.rvanalysis.R;
@@ -26,10 +27,10 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 获取 item 偏移
-     *
+     * <p>
      * 1. ListView 除第一个 item 之外，其他的 item 都在 top 的位置偏移
      * 2. GridView 每个条目都在 right 以及 bottom 有偏移
-     *    但是需要注意的是，最靠边的位置，right 没有偏移；最后一行的 bottom 也不应该有偏移
+     * 但是需要注意的是，最靠边的位置，right 没有偏移；最后一行的 bottom 也不应该有偏移
      */
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -51,7 +52,7 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 为 GridView 样式设置 item 偏移
-     *
+     * <p>
      * GridView 每个条目都在 right 以及 bottom 有偏移
      * 但是需要注意的是，最靠边的位置，right 没有偏移；最后一行的 bottom 也不应该有偏移
      */
@@ -82,7 +83,20 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
     private boolean isLastRow(View view, RecyclerView parent) {
         int itemPosition = parent.getChildAdapterPosition(view);
         GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();
-        return (itemPosition + 1) > (parent.getChildCount() - layoutManager.getSpanCount());
+        return (itemPosition + 1) > (parent.getAdapter().getItemCount() - layoutManager.getSpanCount());
+    }
+
+    private boolean isLastRowByDivide(View view, RecyclerView parent) {
+        int itemPosition = parent.getChildAdapterPosition(view);
+        GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();
+        int spanCount = layoutManager.getSpanCount();
+
+        int rowNumber = parent.getAdapter().getItemCount() % spanCount == 0 ?
+                parent.getAdapter().getItemCount() / spanCount : (parent.getAdapter().getItemCount() / spanCount + 1);
+
+        boolean b = itemPosition + 1 > (rowNumber - 1) * spanCount;
+
+        return b;
     }
 
     /**
@@ -98,7 +112,7 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 为 ListView 样式设置 item 偏移
-     *
+     * <p>
      * ListView 除第一个 item 之外，其他的 item 都在 top 的位置偏移
      */
     private void getItemOffSetsForListView(Rect outRect, View view, RecyclerView parent) {
@@ -110,7 +124,6 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 绘制分割线
-     *
      */
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
@@ -131,7 +144,6 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 为 GridView 绘制分割线
-     *
      */
     private void drawDividerForGridView(Canvas canvas, RecyclerView parent) {
 
@@ -148,6 +160,10 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
         for (int i = 0; i < parent.getChildCount(); i++) {
             View view = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+
+//            if (isLastColumn(view, parent)) {
+//                continue;
+//            }
 
             int left = view.getRight() + params.rightMargin;
             int right = left + mDivider.getIntrinsicWidth();
@@ -166,6 +182,10 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
             View view = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
 
+//            if (isLastRow(view, parent)) {
+//                break;
+//            }
+
             int left = view.getLeft() - params.leftMargin;
             int right = view.getRight() + params.rightMargin + mDivider.getIntrinsicWidth();
             int top = view.getBottom() + params.bottomMargin;
@@ -179,7 +199,6 @@ public class FlexibleDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 为 ListView 绘制分割线
-     *
      */
     private void drawDividerForListView(Canvas canvas, RecyclerView parent) {
 
