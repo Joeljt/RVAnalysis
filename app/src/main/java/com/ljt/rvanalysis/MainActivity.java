@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ljt.rvanalysis.basic.BasicUseActivity;
+import com.ljt.rvanalysis.drag.DragActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,4 +25,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void dragUse(View view) {
+        Intent intent = new Intent(this, DragActivity.class);
+        startActivity(intent);
+    }
 }

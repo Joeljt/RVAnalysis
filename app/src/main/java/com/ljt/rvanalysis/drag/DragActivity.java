@@ -1,4 +1,4 @@
-package com.ljt.rvanalysis.basic;
+package com.ljt.rvanalysis.drag;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,14 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.ljt.rvanalysis.R;
+import com.ljt.rvanalysis.basic.RecyclerAdapter;
 import com.ljt.rvanalysis.basic.decorations.FlexibleDecoration;
-import com.ljt.rvanalysis.basic.decorations.GridItemDecoration;
-import com.ljt.rvanalysis.basic.decorations.LinearItemDecoration;
-import com.ljt.rvanalysis.basic.decorations.RecyclerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +21,10 @@ import java.util.List;
  * Created by lijiateng on 2019/3/20.
  */
 
-public class BasicUseActivity extends AppCompatActivity {
+public class DragActivity extends AppCompatActivity {
 
     private RecyclerView mRv;
+    private RecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +35,43 @@ public class BasicUseActivity extends AppCompatActivity {
         mRv = findViewById(R.id.recycler_view);
         mRv.setLayoutManager(new GridLayoutManager(this, 3));
         mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
-        mRv.setAdapter(new RecyclerAdapter(this, initRecyclerData()));
+        mAdapter = new RecyclerAdapter(this, initRecyclerData());
+        mRv.setAdapter(mAdapter);
+
+        setupItemTouchHelper();
+
+    }
+
+    private void setupItemTouchHelper() {
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                int moveFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+                return makeMovementFlags(moveFlag, ItemTouchHelper.LEFT);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+
+                int fromPos = viewHolder.getAdapterPosition();
+                int toPos = target.getAdapterPosition();
+                mAdapter.notifyItemMoved(fromPos, toPos);
+
+                if (fromPos > toPos) {
+//                    for (int i = 0; )
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+
+        });
+
+        itemTouchHelper.attachToRecyclerView(mRv);
 
     }
 
