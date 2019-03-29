@@ -29,4 +29,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DragActivity.class);
         startActivity(intent);
     }
+
+
+    public void Test(View view) {
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
+    }
 }

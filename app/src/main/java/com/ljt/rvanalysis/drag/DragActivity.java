@@ -1,7 +1,9 @@
 package com.ljt.rvanalysis.drag;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import com.ljt.rvanalysis.basic.RecyclerAdapter;
 import com.ljt.rvanalysis.basic.decorations.FlexibleDecoration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,6 +28,7 @@ public class DragActivity extends AppCompatActivity {
 
     private RecyclerView mRv;
     private RecyclerAdapter mAdapter;
+    private List<String> mItems;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +39,9 @@ public class DragActivity extends AppCompatActivity {
         mRv = findViewById(R.id.recycler_view);
         mRv.setLayoutManager(new GridLayoutManager(this, 3));
         mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
-        mAdapter = new RecyclerAdapter(this, initRecyclerData());
+
+        mItems = initRecyclerData();
+        mAdapter = new RecyclerAdapter(this, mItems);
         mRv.setAdapter(mAdapter);
 
         setupItemTouchHelper();
@@ -47,19 +53,38 @@ public class DragActivity extends AppCompatActivity {
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
                 int moveFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-                return makeMovementFlags(moveFlag, ItemTouchHelper.LEFT);
+                return makeMovementFlags(moveFlag, 0);
+            }
+
+            @Override
+            public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+                if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                    viewHolder.itemView.setBackgroundColor(Color.GREEN);
+                }
+            }
+
+            @Override
+            public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                viewHolder.itemView.setBackgroundColor(0);
+                viewHolder.itemView.setTranslationX(0);
             }
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
 
-                int fromPos = viewHolder.getAdapterPosition();
-                int toPos = target.getAdapterPosition();
-                mAdapter.notifyItemMoved(fromPos, toPos);
+                int fromPosition = viewHolder.getAdapterPosition();
+                int targetPosition = target.getAdapterPosition();
 
-                if (fromPos > toPos) {
-//                    for (int i = 0; )
+                if (fromPosition > targetPosition) {
+                    for (int i = fromPosition; i < targetPosition; i++) {
+                        Collections.swap(mItems, i, i + 1);// 改变实际的数据集
+                    }
+                } else {
+                    for (int i = fromPosition; i > targetPosition; i--) {
+                        Collections.swap(mItems, i, i - 1);// 改变实际的数据集
+                    }
                 }
+                mAdapter.notifyItemMoved(fromPosition, targetPosition);
 
                 return false;
             }
