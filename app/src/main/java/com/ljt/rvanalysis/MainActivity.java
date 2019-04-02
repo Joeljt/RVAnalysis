@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.ljt.rvanalysis.basic.BasicUseActivity;
 import com.ljt.rvanalysis.drag.DragActivity;
-import com.ljt.rvanalysis.hf.HeaderFooterActivity;
+import com.ljt.rvanalysis.wrap.HeaderFooterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
