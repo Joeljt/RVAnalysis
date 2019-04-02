@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.ljt.rvanalysis.basic.BasicUseActivity;
 import com.ljt.rvanalysis.drag.DragActivity;
+import com.ljt.rvanalysis.hf.HeaderFooterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,9 +31,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    public void Test(View view) {
-        Intent intent = new Intent(this, TestActivity.class);
+    public void addHeaderAndFooter(View view) {
+        Intent intent = new Intent(this, HeaderFooterActivity.class);
         startActivity(intent);
     }
 }

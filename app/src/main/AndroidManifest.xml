@@ -19,6 +19,7 @@
         <activity android:name=".basic.BasicUseActivity" />
         <activity android:name=".drag.DragActivity" />
         <activity android:name=".TestActivity" />
+        <activity android:name=".hf.HeaderFooterActivity" />
     </application>
 
 </manifest>
