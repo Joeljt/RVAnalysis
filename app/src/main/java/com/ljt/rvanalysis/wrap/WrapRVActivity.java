@@ -3,8 +3,10 @@ package com.ljt.rvanalysis.wrap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.ljt.rvanalysis.R;
 import com.ljt.rvanalysis.basic.RecyclerAdapter;
@@ -17,20 +19,29 @@ import java.util.List;
  * Created by lijiateng on 2019/4/2.
  */
 
-public class HeaderFooterActivity extends AppCompatActivity {
+public class WrapRVActivity extends AppCompatActivity {
 
-    private RecyclerView mRv;
+    private WrapRecyclerView mRv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_header_footer);
+        setContentView(R.layout.activity_warp_rv);
 
         mRv = findViewById(R.id.recycler_view);
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
-        mRv.setAdapter(new RecyclerAdapter(this, initRecyclerData()));
+
+        // 使用包裹的 adapter
+        RecyclerAdapter mAdapter = new RecyclerAdapter(this, initRecyclerData());
+        WrapRecyclerAdapter wrapRecyclerAdapter = new WrapRecyclerAdapter(mAdapter);
+        mRv.setAdapter(wrapRecyclerAdapter);
+
+        // addHeaderView
+        View inflate = getLayoutInflater().inflate(R.layout.layout_basic_use_item, mRv, false);
+        mRv.addHeaderView(inflate);
+        mRv.addFooterView(getLayoutInflater().inflate(R.layout.layout_basic_use_item, mRv, false));
 
     }
 

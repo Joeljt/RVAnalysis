@@ -20,12 +20,12 @@ public class TestCommonAdapter extends CommonRvAdapter<String> {
     }
 
     @Override
-    int getItemLayoutId() {
+    public int getItemLayoutId() {
         return 0;
     }
 
     @Override
-    void convert(CommonViewHolder holder, String s, int position) {
+    public void convert(CommonViewHolder holder, String s, int position) {
         holder.setImagePath(android.R.id.icon, new MyImageLoader(""));
     }
 
@@ -45,6 +45,7 @@ public class TestCommonAdapter extends CommonRvAdapter<String> {
             // Fresco
 
             // bala bala
+
         }
     }
 
