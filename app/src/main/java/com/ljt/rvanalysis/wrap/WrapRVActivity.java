@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.ljt.rvanalysis.R;
@@ -30,7 +31,7 @@ public class WrapRVActivity extends AppCompatActivity {
         setContentView(R.layout.activity_warp_rv);
 
         mRv = findViewById(R.id.recycler_view);
-        mRv.setLayoutManager(new GridLayoutManager(this,2));
+        mRv.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL));
 //        mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
 
         // 使用包裹的 adapter
