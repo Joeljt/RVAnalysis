@@ -1,6 +1,8 @@
 package com.ljt.rvanalysis.wrap;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +112,46 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+
+        // 设置 GridLayout 布局添加 header/footer 全条目展示
+        final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            final GridLayoutManager.SpanSizeLookup spanSizeLookup =
+                    ((GridLayoutManager) layoutManager).getSpanSizeLookup();
+
+            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (isHeaderPosition(position) || isFooterPosition(position)) {
+                        return ((GridLayoutManager) layoutManager).getSpanCount();
+                    }
+                    return spanSizeLookup.getSpanSize(position);
+                }
+            });
+
+            ((GridLayoutManager) layoutManager).setSpanCount(((GridLayoutManager) layoutManager).getSpanCount());
+        }
+
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+
+        // 设置流式布局添加 header/footer 全条目展示
+        int position = holder.getLayoutPosition();
+        if (isHeaderPosition(position) || isFooterPosition(position)) {
+            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+            if (params != null && params instanceof StaggeredGridLayoutManager.LayoutParams) {
+                StaggeredGridLayoutManager.LayoutParams lp
+                        = (StaggeredGridLayoutManager.LayoutParams) params;
+                lp.setFullSpan(true);
+            }
+        }
+
+    }
+
     public void addHeaderView(View view) {
         int indexOfValue = mHeaders.indexOfValue(view);
         if (indexOfValue == -1) {
@@ -145,4 +187,13 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getFootersCount() {
         return mFooters.size();
     }
+
+    private boolean isHeaderPosition(int pos) {
+        return pos < getHeadersCount();
+    }
+
+    private boolean isFooterPosition(int pos) {
+        return pos >= mAdapter.getItemCount() + getHeadersCount();
+    }
+
 }

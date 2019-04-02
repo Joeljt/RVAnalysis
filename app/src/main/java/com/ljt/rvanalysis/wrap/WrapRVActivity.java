@@ -30,13 +30,12 @@ public class WrapRVActivity extends AppCompatActivity {
         setContentView(R.layout.activity_warp_rv);
 
         mRv = findViewById(R.id.recycler_view);
-        mRv.setLayoutManager(new LinearLayoutManager(this));
-        mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
+        mRv.setLayoutManager(new GridLayoutManager(this,2));
+//        mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
 
         // 使用包裹的 adapter
         RecyclerAdapter mAdapter = new RecyclerAdapter(this, initRecyclerData());
-        WrapRecyclerAdapter wrapRecyclerAdapter = new WrapRecyclerAdapter(mAdapter);
-        mRv.setAdapter(wrapRecyclerAdapter);
+        mRv.setAdapter(mAdapter);
 
         // addHeaderView
         View inflate = getLayoutInflater().inflate(R.layout.layout_basic_use_item, mRv, false);
