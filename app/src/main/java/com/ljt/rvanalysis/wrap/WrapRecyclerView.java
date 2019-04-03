@@ -69,6 +69,9 @@ public class WrapRecyclerView extends RecyclerView {
             });
         }
         super.setAdapter(mAdapter);
+
+        mAdapter.adjustSpanSize(this);
+
     }
 
     public void addHeaderView(View view) {

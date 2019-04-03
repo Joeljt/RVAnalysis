@@ -20,6 +20,7 @@
         <activity android:name=".drag.DragActivity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".wrap.WrapRVActivity" />
+        <activity android:name=".load.test.RefreshRVActivity" />
     </application>
 
 </manifest>

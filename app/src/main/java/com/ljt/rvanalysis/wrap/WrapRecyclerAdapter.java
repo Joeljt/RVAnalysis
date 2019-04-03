@@ -116,23 +116,23 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
 
         // 设置 GridLayout 布局添加 header/footer 全条目展示
-        final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-        if (layoutManager instanceof GridLayoutManager) {
-            final GridLayoutManager.SpanSizeLookup spanSizeLookup =
-                    ((GridLayoutManager) layoutManager).getSpanSizeLookup();
-
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    if (isHeaderPosition(position) || isFooterPosition(position)) {
-                        return ((GridLayoutManager) layoutManager).getSpanCount();
-                    }
-                    return spanSizeLookup.getSpanSize(position);
-                }
-            });
-
-            ((GridLayoutManager) layoutManager).setSpanCount(((GridLayoutManager) layoutManager).getSpanCount());
-        }
+//        final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+//        if (layoutManager instanceof GridLayoutManager) {
+//            final GridLayoutManager.SpanSizeLookup spanSizeLookup =
+//                    ((GridLayoutManager) layoutManager).getSpanSizeLookup();
+//
+//            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                @Override
+//                public int getSpanSize(int position) {
+//                    if (isHeaderPosition(position) || isFooterPosition(position)) {
+//                        return ((GridLayoutManager) layoutManager).getSpanCount();
+//                    }
+//                    return spanSizeLookup.getSpanSize(position);
+//                }
+//            });
+//
+//            ((GridLayoutManager) layoutManager).setSpanCount(((GridLayoutManager) layoutManager).getSpanCount());
+//        }
 
     }
 
@@ -140,15 +140,15 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
 
         // 设置流式布局添加 header/footer 全条目展示
-        int position = holder.getLayoutPosition();
-        if (isHeaderPosition(position) || isFooterPosition(position)) {
-            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
-            if (params != null && params instanceof StaggeredGridLayoutManager.LayoutParams) {
-                StaggeredGridLayoutManager.LayoutParams lp
-                        = (StaggeredGridLayoutManager.LayoutParams) params;
-                lp.setFullSpan(true);
-            }
-        }
+//        int position = holder.getLayoutPosition();
+//        if (isHeaderPosition(position) || isFooterPosition(position)) {
+//            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+//            if (params != null && params instanceof StaggeredGridLayoutManager.LayoutParams) {
+//                StaggeredGridLayoutManager.LayoutParams lp
+//                        = (StaggeredGridLayoutManager.LayoutParams) params;
+//                lp.setFullSpan(true);
+//            }
+//        }
 
     }
 
@@ -194,6 +194,26 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private boolean isFooterPosition(int pos) {
         return pos >= mAdapter.getItemCount() + getHeadersCount();
+    }
+
+    /**
+     * 解决GridLayoutManager添加头部和底部不占用一行的问题
+     *
+     * @param recycler
+     * @version 1.0
+     */
+    public void adjustSpanSize(RecyclerView recycler) {
+        if (recycler.getLayoutManager() instanceof GridLayoutManager) {
+            final GridLayoutManager layoutManager = (GridLayoutManager) recycler.getLayoutManager();
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    boolean isHeaderOrFooter =
+                            isHeaderPosition(position) || isFooterPosition(position);
+                    return isHeaderOrFooter ? layoutManager.getSpanCount() : 1;
+                }
+            });
+        }
     }
 
 }

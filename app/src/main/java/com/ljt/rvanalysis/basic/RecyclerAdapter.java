@@ -37,11 +37,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         String text = mData.get(position);
         holder.tv.setText(text);
 
-        if (position % 3 == 1 || position % 5 == 1) {
-            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-            layoutParams.width = -2;
-            holder.itemView.setLayoutParams(layoutParams);
-        }
+//        if (position % 3 == 1 || position % 5 == 1) {
+//            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+//            layoutParams.width = -2;
+//            holder.itemView.setLayoutParams(layoutParams);
+//        }
 
     }
 

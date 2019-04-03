@@ -32,7 +32,7 @@ public class WrapRVActivity extends AppCompatActivity {
 
         mRv = findViewById(R.id.recycler_view);
         mRv.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL));
-//        mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
+        mRv.addItemDecoration(new FlexibleDecoration(this, R.drawable.item_divider_linear));
 
         // 使用包裹的 adapter
         RecyclerAdapter mAdapter = new RecyclerAdapter(this, initRecyclerData());
