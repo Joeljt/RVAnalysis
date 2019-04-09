@@ -27,7 +27,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     // 手指按下的Y位置
     private int mFingerDownY;
     // 手指拖拽的阻力指数
-    private float mDragIndex = 0.35f;
+    protected float mDragIndex = 0.35f;
     // 当前是否正在拖动
     private boolean mCurrentDrag = false;
     // 当前的状态
