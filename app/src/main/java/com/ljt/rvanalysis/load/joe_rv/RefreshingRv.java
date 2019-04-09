@@ -173,6 +173,11 @@ public class RefreshingRv extends WrapRecyclerView {
             if (mRefreshViewHelper != null) {
                 mRefreshViewHelper.onRefreshing();
             }
+
+            if (onRefreshListener != null) {
+                onRefreshListener.onRefresh();
+            }
+
         }
 
         // 得到滑动出来的距离，将其重置
@@ -206,6 +211,11 @@ public class RefreshingRv extends WrapRecyclerView {
                 // 如果是在最顶部才要将头部拉出来，否则不需要处理
                 if (canScrollUp() || mCurrRefreshStatus == REFRESH_STATUS_REFRESHING) {
                     return super.onTouchEvent(e);
+                }
+
+                // 解决下拉刷新自动滚动问题
+                if (mCurrentDragging) {
+                    scrollToPosition(0);
                 }
 
                 // 获取手指触摸拖拽的距离

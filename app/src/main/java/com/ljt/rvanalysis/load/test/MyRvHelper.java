@@ -28,13 +28,17 @@ public class MyRvHelper extends RefreshViewHelper {
 
     @Override
     public void onPull(int currentDragHeight, int totalHeight) {
-        mRefreshIv.setRotation(currentDragHeight/totalHeight * 360);
+//        mRefreshIv.setRotation(currentDragHeight/totalHeight * 360);
+
+        // 就得用 float，否则四舍五入后会变成 0 或者 1，从而导致无效
+        float rotate = ((float) currentDragHeight) / totalHeight;
+        mRefreshIv.setRotation(rotate * 360);
     }
 
     @Override
     public void onRefreshing() {
         // 刷新过程中旋转
-        RotateAnimation rotateAnimation = new RotateAnimation(0, 270, Animation.RELATIVE_TO_SELF, 0.5f,
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f);
         rotateAnimation.setDuration(700);
         rotateAnimation.setRepeatCount(-1);
