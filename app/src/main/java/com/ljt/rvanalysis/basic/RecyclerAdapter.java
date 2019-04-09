@@ -43,11 +43,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 //            holder.itemView.setLayoutParams(layoutParams);
 //        }
 
+        if (itemClickListener != null) {
+            holder.tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onItemClicked(v);
+                }
+            });
+        }
+
     }
 
     @Override
     public int getItemCount() {
         return mData != null ? mData.size() : 0;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
+
+    private OnItemClickListener itemClickListener;
+    public interface OnItemClickListener {
+        void onItemClicked(View v);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
