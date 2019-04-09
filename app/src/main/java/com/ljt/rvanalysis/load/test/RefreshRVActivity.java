@@ -8,8 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.ljt.rvanalysis.R;
 import com.ljt.rvanalysis.basic.RecyclerAdapter;
-import com.ljt.rvanalysis.load.DefaultRefreshCreator;
-import com.ljt.rvanalysis.load.RefreshRecyclerView;
+import com.ljt.rvanalysis.load.darren_rv.RefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.ljt.rvanalysis.load;
+package com.ljt.rvanalysis.load.test;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
 import com.ljt.rvanalysis.R;
+import com.ljt.rvanalysis.load.darren_rv.RefreshViewCreator;
 
 /**
  * Created by Darren on 2017/1/3.

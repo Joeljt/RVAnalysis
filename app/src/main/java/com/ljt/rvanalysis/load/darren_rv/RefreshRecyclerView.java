@@ -1,4 +1,4 @@
-package com.ljt.rvanalysis.load;
+package com.ljt.rvanalysis.load.darren_rv;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -129,7 +129,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
 
                 // 解决下拉刷新自动滚动问题
                 if (mCurrentDrag) {
-//                    scrollToPosition(0);
+                    scrollToPosition(0);
                 }
 
                 // 获取手指触摸拖拽的距离
